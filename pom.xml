@@ -5,9 +5,9 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>br.com.fiap</groupId>
-    <artifactId>APIrest-Porto</artifactId>
+    <artifactId>APIrest-GS</artifactId>
     <version>1.0-SNAPSHOT</version>
-    <name>APIPrest-Porto</name>
+    <name>APIPrest-gs</name>
 
 
     <properties>

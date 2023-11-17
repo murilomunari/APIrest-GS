@@ -21,7 +21,7 @@ public class Main {
                 // Configure ConnectionFactory
                 .register(ConnectionFactory.build())
                 // Configure os pacotes em que temos Recursos da API REST
-                .packages("br.com.fiap.domain.resource");
+                .packages("br.com.fiap.domain.resources");
         return GrizzlyHttpServerFactory.createHttpServer(URI.create(BASE_URI), rc);
     }
 
