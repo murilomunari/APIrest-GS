@@ -86,7 +86,35 @@ public class EmpresaTerceiraRepository implements Repository<EmpresaTerciera,Lon
     }
 
     @Override
-    public EmpresaTerciera findById(Long aLong) {
-        return null;
+    public EmpresaTerciera findById(Long id) {
+        EmpresaTerciera empresaTerciera = null;
+        var sql = "SELECT * FROM  TB_EMPRESA where ID_EMPRESA=?";
+
+        Connection con = factory.getConnection();
+        PreparedStatement ps = null;
+        ResultSet rs = null;
+        try {
+            ps = con.prepareStatement(sql);
+            ps.setLong(1, id);
+            rs = ps.executeQuery();
+
+            if (rs.isBeforeFirst()){
+                RamoRepository ramoRepo = RamoRepository.build();
+                while (rs.next()){
+                    String nome = rs.getString("NM_EMPRESA");
+                    String cnpj = rs.getString("NR_CNPJ");
+                    String email = rs.getString("EMAIL");
+                    Long idRamo = rs.getLong("RAMO");
+                    Ramo ramo = ramoRepo.findById(idRamo);
+                    empresaTerciera = new EmpresaTerciera( null,nome, cnpj, email, ramo);
+                }
+            }
+
+        }catch (SQLException e){
+            System.err.println("Não foi possível consultar o ID da empresa");
+        }finally {
+            fecharObjetos(rs, ps, con);
+        }
+        return empresaTerciera;
     }
 }
