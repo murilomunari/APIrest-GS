@@ -66,13 +66,13 @@ public class PacienteRepository implements Repository<Paciente, Long>{
             ps = con.prepareStatement(sql, new String[]{"ID_PACIENTE"});
             rs = ps.executeQuery(sql);
             if (rs.isBeforeFirst()){
-                while (rs.next()){
+                while (rs.next()) {
                     Long id = rs.getLong("ID_PACIENTE");
                     String nome = rs.getString("NM_PACIENTE");
-                    LocalDate nascimento = rs.getDate("NASCIMENTO").toLocalDate();
+                    LocalDate nascimento = (rs.getDate("NASCIMENTO") != null) ? rs.getDate("NASCIMENTO").toLocalDate() : null;
                     String laudo = rs.getString("LAUDO");
                     String cpf = rs.getString("CPF");
-                    list.add(new Paciente(id, nome, cpf, nascimento, laudo ));
+                    list.add(new Paciente(id, nome, cpf, nascimento, laudo));
                 }
             }
         }catch (SQLException e){
