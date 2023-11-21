@@ -35,6 +35,7 @@ CREATE TABLE "TB_EMPRESA"(
                              "ID_EMPRESA" NUMERIC(19,0),
                              "NM_EMPRESA" VARCHAR2(255),
                              "NR_CNPJ" VARCHAR2(14),
+                             "EMAIL" VARCHAR(255),
                              "RAMO" NUMBER(19,0)
 );
 CREATE UNIQUE INDEX  "IDX_TB_EMPRESA_ID" ON  "TB_EMPRESA" ("ID_EMPRESA");

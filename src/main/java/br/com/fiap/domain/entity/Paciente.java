@@ -8,6 +8,8 @@ public class Paciente {
 
     private String nome;
 
+    private String cpf;
+
     private LocalDate dataNascimento;
 
     private String laudo;
@@ -15,12 +17,14 @@ public class Paciente {
     public Paciente() {
     }
 
-    public Paciente(Long id, String nome, LocalDate dataNascimento, String laudo) {
-        this.id = id;
-        this.nome = nome;
-        this.dataNascimento = dataNascimento;
-        this.laudo = laudo;
+    public Paciente(Long id, String nome, String cpf, LocalDate dataNascimento, String laudo) {
+        this.setId(id);
+        this.setNome(nome);
+        this.setCpf(cpf);
+        this.setDataNascimento(dataNascimento);
+        this.setLaudo(laudo);
     }
+
 
     public Long getId() {
         return id;
@@ -37,6 +41,15 @@ public class Paciente {
 
     public Paciente setNome(String nome) {
         this.nome = nome;
+        return this;
+    }
+
+    public String getCpf() {
+        return cpf;
+    }
+
+    public Paciente setCpf(String cpf) {
+        this.cpf = cpf;
         return this;
     }
 
@@ -63,6 +76,7 @@ public class Paciente {
         return "Paciente{" +
                 "id=" + id +
                 ", nome='" + nome + '\'' +
+                ", cpf='" + cpf + '\'' +
                 ", dataNascimento=" + dataNascimento +
                 ", laudo='" + laudo + '\'' +
                 '}';

@@ -35,6 +35,7 @@ public class PacienteRepository implements Repository<Paciente, Long>{
             ps.setString(1, paciente.getNome());
             ps.setDate(2, Date.valueOf(paciente.getDataNascimento()));
             ps.setString(3, paciente.getLaudo());
+            ps.setString(4, paciente.getCpf());
 
 
             ps.executeUpdate();
@@ -70,7 +71,8 @@ public class PacienteRepository implements Repository<Paciente, Long>{
                     String nome = rs.getString("NM_PACIENTE");
                     LocalDate nascimento = rs.getDate("NASCIMENTO").toLocalDate();
                     String laudo = rs.getString("LAUDO");
-                    list.add(new Paciente(id, nome, nascimento, laudo));
+                    String cpf = rs.getString("CPF");
+                    list.add(new Paciente(id, nome, cpf, nascimento, laudo ));
                 }
             }
         }catch (SQLException e){
@@ -99,7 +101,8 @@ public class PacienteRepository implements Repository<Paciente, Long>{
                     String nome = rs.getString("NM_PACIENTE");
                     LocalDate nascimento = rs.getDate("NASCIMENTO").toLocalDate();
                     String laudo = rs.getString("LAUDO");
-                    paciente = new Paciente(null, nome, nascimento, laudo);
+                    String cpf = rs.getString("CPF");
+                    paciente = new Paciente(null, nome, cpf, nascimento, laudo);
                 }
             }
         }catch (SQLException e){
