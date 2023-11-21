@@ -11,7 +11,7 @@ import java.net.URI;
 
 public class Main {
 
-    private static final String BASE_URI = "http://localhost:8080/";
+    private static final String BASE_URI = "http://localhost/";
 
     public static HttpServer startServer() {
 
@@ -21,7 +21,7 @@ public class Main {
                 // Configure ConnectionFactory
                 .register(ConnectionFactory.build())
                 // Configure os pacotes em que temos Recursos da API REST
-                .packages("br.com.fiap.domain.resources");
+                .packages("br.com.fiap.domain.resource");
         return GrizzlyHttpServerFactory.createHttpServer(URI.create(BASE_URI), rc);
     }
 
