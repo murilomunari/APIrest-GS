@@ -26,7 +26,7 @@ public class PacienteRepository implements Repository<Paciente, Long>{
     }
     @Override
     public Paciente persist(Paciente paciente) {
-        var sql = "INSERT INTO TB_PACIENTE (ID_PACIENTE, NM_PACIENTE, CPF, LAUDO, NASCIMENTO) VALUES (0,?,?,?,?";
+        var sql = "INSERT INTO TB_PACIENTE (ID_PACIENTE, NM_PACIENTE, CPF, NASCIMENTO) VALUES (0,?,?,?,?";
 
         Connection conn = factory.getConnection();
         PreparedStatement ps = null;
@@ -34,7 +34,6 @@ public class PacienteRepository implements Repository<Paciente, Long>{
             ps = conn.prepareStatement(sql, new String[]{"ID_PACIENTE"});
             ps.setString(1, paciente.getNome());
             ps.setDate(2, Date.valueOf(paciente.getDataNascimento()));
-            ps.setString(3, paciente.getLaudo());
             ps.setString(4, paciente.getCpf());
 
 
@@ -70,9 +69,8 @@ public class PacienteRepository implements Repository<Paciente, Long>{
                     Long id = rs.getLong("ID_PACIENTE");
                     String nome = rs.getString("NM_PACIENTE");
                     LocalDate nascimento = (rs.getDate("NASCIMENTO") != null) ? rs.getDate("NASCIMENTO").toLocalDate() : null;
-                    String laudo = rs.getString("LAUDO");
                     String cpf = rs.getString("CPF");
-                    list.add(new Paciente(id, nome, cpf, nascimento, laudo));
+                    list.add(new Paciente(id, nome, cpf, nascimento));
                 }
             }
         }catch (SQLException e){
@@ -100,9 +98,8 @@ public class PacienteRepository implements Repository<Paciente, Long>{
                 while (rs.next()){
                     String nome = rs.getString("NM_PACIENTE");
                     LocalDate nascimento = rs.getDate("NASCIMENTO").toLocalDate();
-                    String laudo = rs.getString("LAUDO");
                     String cpf = rs.getString("CPF");
-                    paciente = new Paciente(null, nome, cpf, nascimento, laudo);
+                    paciente = new Paciente(null, nome, cpf, nascimento);
                 }
             }
         }catch (SQLException e){

@@ -17,7 +17,6 @@ CREATE TABLE "TB_PACIENTE"(
                               "ID_PACIENTE" NUMBER(19,0),
                               "NM_PACIENTE" VARCHAR2(255),
                               "CPF" VARCHAR2(11),
-                              "LAUDO" VARCHAR2(255),
                               "NASCIMENTO" DATE
 );
 

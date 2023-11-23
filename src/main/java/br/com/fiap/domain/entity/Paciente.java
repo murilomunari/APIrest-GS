@@ -12,17 +12,17 @@ public class Paciente {
 
     private LocalDate dataNascimento;
 
-    private String laudo;
+
 
     public Paciente() {
     }
 
-    public Paciente(Long id, String nome, String cpf, LocalDate dataNascimento, String laudo) {
+    public Paciente(Long id, String nome, String cpf, LocalDate dataNascimento) {
         this.setId(id);
         this.setNome(nome);
         this.setCpf(cpf);
         this.setDataNascimento(dataNascimento);
-        this.setLaudo(laudo);
+
     }
 
 
@@ -62,15 +62,6 @@ public class Paciente {
         return this;
     }
 
-    public String getLaudo() {
-        return laudo;
-    }
-
-    public Paciente setLaudo(String laudo) {
-        this.laudo = laudo;
-        return this;
-    }
-
     @Override
     public String toString() {
         return "Paciente{" +
@@ -78,7 +69,6 @@ public class Paciente {
                 ", nome='" + nome + '\'' +
                 ", cpf='" + cpf + '\'' +
                 ", dataNascimento=" + dataNascimento +
-                ", laudo='" + laudo + '\'' +
                 '}';
     }
 }
