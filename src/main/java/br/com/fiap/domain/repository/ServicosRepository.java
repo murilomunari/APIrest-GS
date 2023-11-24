@@ -60,7 +60,7 @@ public class ServicosRepository implements Repository<Servicos, Long>{
         ResultSet rs = null;
         PreparedStatement ps = null;
 
-        var sql = "SELECT * FROM TB_BICICLETA";
+        var sql = "SELECT * FROM TB_SERVICOS";
         try {
             ps = con.prepareStatement( sql, new String[]{"ID_SERVICO"} );
             rs = ps.executeQuery(sql);
@@ -74,7 +74,7 @@ public class ServicosRepository implements Repository<Servicos, Long>{
             }
 
         }catch (SQLException e){
-            System.err.println("Não foi possível consultar a bicicleta\n" + e.getMessage());
+            System.err.println("Não foi possível consultar o servico\n" + e.getMessage());
         }finally {
             fecharObjetos(rs,ps,con);
         }
