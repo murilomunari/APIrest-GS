@@ -67,7 +67,7 @@ public class ServicosRepository implements Repository<Servicos, Long>{
             if (rs.isBeforeFirst()){
                 while (rs.next()){
                     Long id = rs.getLong("ID_SERVICO");
-                    String descricao = rs.getString("DT_SERVICO");
+                    String descricao = rs.getString("DS_SERVICO");
                     String tipo = rs.getString("TIPO");
                     list.add(new Servicos(id, descricao, tipo));
                 }
