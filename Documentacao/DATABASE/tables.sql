@@ -1,6 +1,8 @@
-CREATE TABLE "TB_AREAS"(
-                           "ID_AREA" NUMBER(19,0),
-                           "LOCAL" VARCHAR2(255)
+CREATE TABLE TB_AREAS(
+                         ID_AREA INT ,
+                         REGIAO VARCHAR2(255),
+                         CEP INT
+
 );
 
 CREATE UNIQUE INDEX  "IDX_TB_AREAS_ID" ON  "TB_AREAS" ("ID_AREA");
