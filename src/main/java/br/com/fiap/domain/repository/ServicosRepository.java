@@ -27,7 +27,7 @@ public class ServicosRepository implements Repository<Servicos, Long>{
     }
     @Override
     public Servicos persist(Servicos servicos) {
-        var sql = "INSERT INTO TB_SERVICOS (ID_SERVICO, DT_SERVICO, TIPO) VALUES (0,?,?)";
+        var sql = "INSERT INTO TB_SERVICOS (ID_SERVICO, DS_SERVICO, TIPO) VALUES (0,?,?)";
 
         Connection conn = factory.getConnection();
         PreparedStatement ps = null;
