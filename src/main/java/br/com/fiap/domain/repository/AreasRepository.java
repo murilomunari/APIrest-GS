@@ -28,13 +28,14 @@ public class AreasRepository implements Repository<Areas, Long>{
 
     @Override
     public Areas persist(Areas areas) {
-        var sql = "INSERT INTO TB_AREAS(ID_AREA, LOCAL) VALUES(0, ?)";
+        var sql = "INSERT INTO TB_AREAS(ID_AREA, REGIAO, CEP) VALUES(0, ?, ?)";
 
         Connection conn = factory.getConnection();
         PreparedStatement ps = null;
         try{
             ps = conn.prepareStatement(sql, new String[]{"ID_AREA"});
-            ps.setString(1, areas.getLocal());
+            ps.setString(1, areas.getRegiao());
+            ps.setInt(2, areas.getCep());
 
             ps.executeUpdate();
 
@@ -66,8 +67,9 @@ public class AreasRepository implements Repository<Areas, Long>{
             if (rs.isBeforeFirst()){
                 while (rs.next()){
                     Long id = rs.getLong("ID_AREA");
-                    String local = rs.getString("LOCAL");
-                    list.add(new Areas(id, local));
+                    String regiao = rs.getString("REGIAO");
+                    int cep = rs.getInt("CEP");
+                    list.add(new Areas(id, regiao, cep));
                 }
             }
         }catch (SQLException e){
@@ -94,8 +96,9 @@ public class AreasRepository implements Repository<Areas, Long>{
 
             if (rs.isBeforeFirst()){
                 while (rs.next()){
-                    String local = rs.getString("LOCAL");
-                    areas = new Areas(null,local);
+                    String regiao = rs.getString("REGIAO");
+                    int cep = rs.getInt("CEP");
+                    areas = new Areas(null,regiao, cep);
                 }
             }
 

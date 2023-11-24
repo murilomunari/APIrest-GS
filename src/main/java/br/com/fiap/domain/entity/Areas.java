@@ -4,14 +4,17 @@ public class Areas {
 
     private Long id;
 
-    private String local;
+    private String regiao;
+
+    private int cep;
 
     public Areas() {
     }
 
-    public Areas(Long id, String local) {
-        this.id = id;
-        this.local = local;
+    public Areas(Long id, String regiao, int cep) {
+        this.setId(id);
+        this.setRegiao(regiao);
+        this.setCep(cep);
     }
 
     public Long getId() {
@@ -23,12 +26,21 @@ public class Areas {
         return this;
     }
 
-    public String getLocal() {
-        return local;
+    public String getRegiao() {
+        return regiao;
     }
 
-    public Areas setLocal(String local) {
-        this.local = local;
+    public Areas setRegiao(String regiao) {
+        this.regiao = regiao;
+        return this;
+    }
+
+    public int getCep() {
+        return cep;
+    }
+
+    public Areas setCep(int cep) {
+        this.cep = cep;
         return this;
     }
 
@@ -36,7 +48,8 @@ public class Areas {
     public String toString() {
         return "Areas{" +
                 "id=" + id +
-                ", local='" + local + '\'' +
+                ", regiao='" + regiao + '\'' +
+                ", cep=" + cep +
                 '}';
     }
 }
