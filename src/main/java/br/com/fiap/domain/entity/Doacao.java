@@ -7,7 +7,7 @@ public class Doacao {
 
     private Long id;
 
-    private double valor;
+    private int valor;
 
     private String tipo;
 
@@ -18,7 +18,7 @@ public class Doacao {
     public Doacao() {
     }
 
-    public Doacao(Long id, double valor, String tipo, LocalDate data, EmpresaTerciera empresa) {
+    public Doacao(Long id, int valor, String tipo, LocalDate data, EmpresaTerciera empresa) {
         this.setId(id);
         this.setValor(valor);
         this.setTipo(tipo);
@@ -36,11 +36,11 @@ public class Doacao {
         return this;
     }
 
-    public double getValor() {
+    public int getValor() {
         return valor;
     }
 
-    public Doacao setValor(double valor) {
+    public Doacao setValor(int valor) {
         this.valor = valor;
         return this;
     }

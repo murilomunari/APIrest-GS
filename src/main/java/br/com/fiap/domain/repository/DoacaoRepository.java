@@ -55,65 +55,57 @@ public class DoacaoRepository implements Repository<Doacao, Long>{
 
     @Override
     public List<Doacao> findAll() {
+        var sql = "SELECT * FROM TB_DOACOES";
+        return executeQuery(sql);
+    }
+
+    @Override
+    public Doacao findById(Long id) {
+        var sql = "SELECT * FROM TB_DOACOES WHERE ID_DOACAO=?";
+        List<Doacao> result = executeQuery(sql, id);
+        return result.isEmpty() ? null : result.get(0);
+    }
+
+    private List<Doacao> executeQuery(String sql, Object... params) {
         List<Doacao> list = new ArrayList<>();
         Connection con = factory.getConnection();
         ResultSet rs = null;
         PreparedStatement ps = null;
 
-        var sql = "SELECT * FROM TB_DOACOES";
         try {
-            ps = con.prepareStatement(sql, new String[]{"ID_DOACAO"});
-            rs = ps.executeQuery(sql);
-            if (rs.isBeforeFirst()){
-                EmpresaTerceiraRepository empresaRepo = EmpresaTerceiraRepository.build();
-                while (rs.next()){
-                    Long id = rs.getLong("ID_DOACAO");
-                    double valor = rs.getDouble("VALOR");
-                    String tipo = rs.getString("TIPO");
-                    LocalDate data = (rs.getDate("DATA") != null) ? rs.getDate("DATA").toLocalDate(): null;
-                    Long idEmpresa = rs.getLong("EMPRESA_DOADORA");
-                    EmpresaTerciera empresaTerciera = empresaRepo.findById(idEmpresa);
-                    list.add(new Doacao(id, valor, tipo, data, empresaTerciera));
+            ps = con.prepareStatement(sql);
+            int paramIndex = 1;
+            for (Object param : params) {
+                if (param instanceof Long) {
+                    ps.setLong(paramIndex, (Long) param);
+                } else if (param instanceof String) {
+                    ps.setString(paramIndex, (String) param);
                 }
+                // Adicione outros tipos de parâmetros conforme necessário
 
+                paramIndex++;
             }
-        }catch (SQLException e){
-            System.err.println("Não foi possível consultar a doação\n" + e.getMessage());
-        }finally {
+
+            rs = ps.executeQuery();
+
+            EmpresaTerceiraRepository empresaRepo = EmpresaTerceiraRepository.build();
+
+            while (rs.next()) {
+                Long id = rs.getLong("ID_DOACAO");
+                int valor = rs.getInt("VALOR");
+                String tipo = rs.getString("TIPO");
+                LocalDate data = (rs.getDate("DATA_DOACAO") != null) ? rs.getDate("DATA_DOACAO").toLocalDate() : null;
+                Long idEmpresa = rs.getLong("EMPRESA_DOADORA");
+                EmpresaTerciera empresaTerciera = empresaRepo.findById(idEmpresa);
+                list.add(new Doacao(id, valor, tipo, data, empresaTerciera));
+            }
+
+        } catch (SQLException e) {
+            System.err.println("Erro ao executar consulta: " + e.getMessage());
+        } finally {
             fecharObjetos(rs, ps, con);
         }
         return list;
     }
 
-    @Override
-    public Doacao findById(Long id) {
-        Doacao doacao = null;
-        var sql = "SELECT * FROM TB_DOACOES where ID_DOACAO=?";
-
-        Connection con = factory.getConnection();
-        PreparedStatement ps = null;
-        ResultSet rs = null;
-        try {
-            ps = con.prepareStatement(sql);
-            ps.setLong(1, id);
-            rs = ps.executeQuery();
-
-            if (rs.isBeforeFirst()) {
-                EmpresaTerceiraRepository empresaRepo = EmpresaTerceiraRepository.build();
-                while (rs.next()){
-                    double valor = rs.getDouble("VALOR");
-                    String tipo = rs.getString("TIPO");
-                    LocalDate data = (rs.getDate("DATA") != null) ? rs.getDate("DATA").toLocalDate(): null;
-                    Long idEmpresa = rs.getLong("EMPRESA_DOADORA");
-                    EmpresaTerciera empresaTerciera = empresaRepo.findById(idEmpresa);
-                    doacao = new Doacao(null, valor, tipo, data,empresaTerciera);
-            }
-            }
-        }catch (SQLException e){
-            System.err.println("Não foi possível consultar o ID da doação");
-        }finally {
-            fecharObjetos(rs, ps, con);
-        }
-        return  doacao;
-    }
 }
